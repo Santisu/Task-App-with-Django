@@ -21,6 +21,7 @@ class LoginView(View):
         else:
             login(request, usuario)
             return redirect('index_user')
+        
 @login_required
 def LogoutView(request):
     logout(request)
