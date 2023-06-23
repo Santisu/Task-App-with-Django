@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,400;0,500;1,900&family=Kodchasan:ital,wght@0,600;1,200;1,400;1,500&family=Merriweather:wght@700&display=swap');
+/* 
+font-family: 'Fira Sans', sans-serif;
+
+font-family: 'Kodchasan', sans-serif;
+
+font-family: 'Merriweather', serif; */
+
+
+body {
+  background: rgba(146, 166, 252, 0.233);
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.tipografia {
+    font-family: 'Kodchasan', sans-serif;
+    font-weight: 600;
+    text-shadow: 1px 1px 10px rgba(89, 77, 206, 0.8);
+    margin-bottom: 30px;
+    font-size: 70px;
+    
+}
+
+.titulo {
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Fira Sans', sans-serif;
+  color: slateblue;
+  text-shadow: 1px 1px black;
+  margin-bottom: 30px;
+}
+
+.error {
+  font-weight: bold;
+  color: red;
+  text-shadow: 1px 1px yellow;
+}
+
+.exito {
+  font-weight: bold;
+  color: rgb(0, 255, 115);
+  text-shadow: 1px 1px black;
+}
+
+.icon {
+  width: 50px;
+  border-radius: 40px;
+}
+
+.card {
+  background-color: rgba(218, 165, 32, 0.05);
+  border-radius: 20px;
+}
+
+.table {
+  border-radius: 10px;
+}
+
+#usuarios {
+  background: rgba(241, 166, 96, 0.3);
+  border-radius: 10px;
+  padding: 5px;
+}
+.fondo {
+  background: rgba(0, 0, 0, 0.123);
+  text-align: center;
+  padding: 15px;
+}
+
+.navnav {
+  background: rgba(79, 108, 197, 0.349);
+}
+
+.navboton {
+  background: rgba(227, 234, 241, 0.719);
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+  margin-right: 5px;
+}
+
+.navboton:hover {
+  background-color: rgba(161, 189, 216, 0.719);
+  box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.8);
+  transform: scale(1.05, 1.05);
+}
+
+.card-title {
+  font-weight: 700;
+}
+
+.botonmemo {
+    background-color: #7498b7;
+    transition: 0.3s;
+
+}
+.botonmemo:hover {
+    background-color: #4e789c
+
+}
+
+/* Footer */
+
+footer {
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 20px;
+    text-align: center;
+  }
+
+  footer .card-title{
+    font-family: 'Kodchasan', sans-serif;
+  }
+#sticky-footer {
+  background-color: #7498b7;
+}
+
+#card-footer {
+  background-color: rgba(86, 115, 140, 0.029);
+  border: none;
+  color: white;
+  align-items: center;
+  padding: 30px;
+}
+
+#brand {
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: larger;
+  color: white;
+}
+
+.futer {
+  margin: 0px;
+}
+
+.icono {
+  height: 20px;
+  width: 20px;
+}
+
+.cardo {
+  display: flex;
+  align-items: center;
+  background-color: none;
+  justify-content: center;
+}
+.cardo2 {
+  display: flex;
+  align-items: top;
+  margin-top: 30px;
+  background-color: none;
+  justify-content: center;
+}
+
+.image {
+  border-radius: 60px;
+}
+
+.container-img img {
+  border-radius: 0 25px 25px 0;
+  mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.container-img img:hover {
+  opacity: 0.7;
+  transition: opacity 0.55s ease-in-out;
+}
+
+.inicio {
+  transition: 0.3s;
+}
+.inicio:hover {
+  transform: scale(1.02, 1.02);
+}
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+li {
+  list-style: none;
+  padding-left: 0;
+}
+
+.rrss {
+  transition: 0.3s;
+}
+.rrss:hover {
+  transform: scale(1.05, 1.05);
+}
+.titulo {
+  font-size: 35px;
+  padding-bottom: 10px;
+  color: rgba(40, 51, 178, 0.537);
+  text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+}
+@media only screen and (max-width: 995px) {
+  .cardo {
+    margin-top: 20px;
+    font-size: larger;
+    text-align: center;
+  }
+  .container-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container-img img {
+    border-radius: 0 0 25px 25px;
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
+
+  .navboton {
+    background: rgba(227, 234, 241, 0.719);
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    margin: 5px;
+    text-align: center;
+    font-weight: 600;
+  }
+  footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    bottom: 0;
+  }
+
+  #card-footer {
+    background-color: rgba(86, 115, 140, 0.029);
+    border: none;
+    color: white;
+    align-items: center;
+    padding: 30px;
+    min-width: fit-content;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .tarjeta {
+    min-width: fit-content;
+    list-style: none;
+    justify-content: center;
+  }
+
+  .futer {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .col-12 {
+    min-width: 100%;
+  }
+}

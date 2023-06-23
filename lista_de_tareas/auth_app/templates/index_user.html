@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Inicio {{ user.username }}{% endblock %}
+{% block header %}<h1 class="titulo">Bienvenid@ {{ user.username }}</h1>{% endblock %}
+{% block content %}
+
+<div class="row">
+{% if user.is_authenticated %}
+<section class="col-lg-12 inicio">
+    <div class="row justify-content-center d-flex align-content-center">
+        <div class="cardo2 col-8 col-lg-5 ">
+            <div class="card-body">
+            <h3 class="card-title mb-2 titulo">¡Bienvenid@, {{ user.first_name }} {{ user.last_name }}!</h3>
+            <p class="card-text">Estamos trabajando para poder implementar este programa, prontamente podrás ver tu registro de tareas en esta página, agradecemos su paciencia.</p>
+            </div>
+        </div>
+        <div class="col-lg-6 container-img">
+            <img class="image img-fluid" src="{% static 'images/icon.svg' %}" alt="Memo me">
+        </div>
+    </div>
+</section>
+{% endif %}
+</div>
+
+{% endblock %}
