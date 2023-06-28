@@ -79,19 +79,12 @@ WSGI_APPLICATION = 'lista_de_tareas.wsgi.application'
 DATABASES = {
 
     'default': {
-
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
         'NAME': 'django_tareas',
-
         'USER': 'admin',
-
         'PASSWORD': 'FwS1vJ4jiMTG86AzePPkRYBCDnBwL2vl',
-
         'HOST': 'dpg-cia8c6h8g3n2q3ookss0-a.oregon-postgres.render.com',
-
         'PORT': '5432',
-
     }
 
 }
