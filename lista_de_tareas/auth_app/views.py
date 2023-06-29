@@ -2,8 +2,6 @@ from django.shortcuts import redirect, render
 from django.views import View
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-
 from .forms import LoginForm
 
 # Create your views here.
