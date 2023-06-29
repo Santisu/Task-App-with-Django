@@ -26,9 +26,3 @@ class LoginView(View):
 def LogoutView(request):
     logout(request)
     return redirect('index')
-
-@method_decorator(login_required, name ='dispatch')
-class IndexUserView(View):
-
-    def get(self, request):
-        return render(request, "index_user.html")

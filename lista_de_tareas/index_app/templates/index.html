@@ -1,69 +1,26 @@
-
-
-{% extends 'base.html' %} {% load static %}{% block title %}Inicio{% endblock %} 
+{% extends 'base.html' %} {% load static %}
+{% block title %}Inicio{% endblock %}
 {% block content %}
 <div class="row">
-    <section class="col-lg-12 inicio">
-        <div class="row justify-content-center d-flex align-content-center">
-            <div class="cardo col-8 col-lg-5 ">
-                <div class="card-body">
-                <h3 class="card-title mb-2 tipografia">Memo Me</h3>
-                <p class="card-text">Manten registro de tus tareas y objetivos de forma simple y ordenada.</p>
-                </div>
-            </div>
-            
-            <div class="col-lg-6 container-img">
-                <img class="image img-fluid" src="{% static 'images/icon.svg' %}" alt="Gato Porteño">
-            </div>
-        </div>
-    </section>
+  <section class="col-lg-12 inicio">
     <div class="row justify-content-center d-flex align-content-center">
-    <div class="card-body">
-        <h3 class="card-title mb-2 titulo">Ejercicio Individual 1</h3>
-        <p class="card-text">
-          Para este proyecto escalable se crearon, por el momento, 3
-          aplicaciones con diferentes funciones:
-        </p>
-        <p class="card-text">
-          - auth_app: esta app contendrá toda la lógica, modelos y views que
-          sean necesarios para poder registrarse, hacer login y logout. Además
-          de contener el index al que es redirigido el usuario al momento de
-          autenticarse <br />
-          - index_app: esta app contiene la página de inicio y todo su
-          contenido, además también almacena la plantilla base del programa en
-          general y sus statics comunes <br />
-          - task_app: esta es la app que contendrá toda la lógica, modelos y
-          vistas necesarias para manejar el propósito principal del programa <br> <br>
-           Para la base de datos se está usando PostgreSQL, sin embargo, en lugar de conectarse a una base de datos local almacenada en mi computador personal, se está usando una base de datos creada de manera gratuita en la pagina web <a href="https://render.com/" target="_blank">Render</a>, a pesar de que quizá tarde en devolver las peticiones, por el hecho de ser gratuita y de recursos limitadísimos, el acceso a una base de datos externa ayudará en la revisión del correcto funcionamiento del proyecto, actualmente tengo acceso a esta base de datos desde el pgadmin de igual forma. <span style="text-decoration: underline;"> Por favor, no alterar la base de datos, con abstenerse de realizar migraciones sin mi consentimiento debería ser suficiente, muchas gracias.</span>
-           <br>
-           Finalmente, en este <a href="https://github.com/Santisu/Modulo-7-Acceso-a-datos-en-aplicaciones-Django" target="_blank">repositorio de github</a> estará el proyecto completo de este módulo, el que se irá actualizando a medida que avance en los ejercicios de cada aprendizaje.
-          
-        </p>
-        Usuarios: <br>
-          <table class="table">
-              <thead>
-                  <th>Username</th>
-                  <th>Contraseña</th>
-                  <th>Clase</th>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td>admin</td>
-                      <td>123</td>
-                      <td>Superuser</td>
-                    </tr>
-                    <tr>
-                      <td>usuario1</td>
-                      <td>contrasena2023</td>
-                      <td>Usuario</td>
-                    </tr>
-                    <tr>
-                      <td>usuario2</td>
-                      <td>contrasena2023</td>
-                      <td>Usuario</td>
-                    </tr>
-              </tbody>
-          </table>
+      <div class="cardo col-8 col-lg-5">
+        <div class="card-body">
+          <h3 class="card-title mb-2 tipografia">Memo Me</h3>
+          <p class="card-text">
+            Manten registro de tus tareas y objetivos de forma simple y
+            ordenada.
+          </p>
         </div>
+      </div>
+      <div class="col-lg-6 container-img">
+        <img
+          class="image img-fluid"
+          src="{% static 'images/icon.svg' %}"
+          alt="Memo Me"
+        />
+      </div>
+    </div>
+  </section>
 </div>
 {% endblock %}
