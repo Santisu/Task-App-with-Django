@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Lista de Tareas {{ user.username }}{% endblock %}
+{% block header %}Tareas de {{ user.username }}{% endblock %}
+{% block content %}
+
+<a href="" class="btn btn-success rounded-3 m-3">Agregar Tarea</a>
+
+{% if tasks %}
+  <ul>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+              <th scope="col">Fecha Límite</th>
+              <th scope="col">Tarea</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Detalle</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for task in tasks %}
+            <tr class="{% if task.label_id == 1 %}table-primary
+                        {% elif task.label_id == 2 %}table-success
+                        {% elif task.label_id == 3 %}table-warning
+                        {% elif task.label_id == 4 %}table-light
+                        {% else %}table-danger {% endif%} align-middle cursor" >
+                <td class="align-middle cursor" ><span class="bg-date p-2 rounded-3">{{ task.due_date }}</span></td>
+                <th class="align-middle cursor">{{ task.title }}</th>
+                <td class="align-middle cursor" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ task.description }}">{{ task.description|truncatechars:30 }}</td>
+                <td class="align-middle cursor">{{ task.status }}</td>
+                <td><a href="{% url 'task_item' task.id %}" class="btn btn-dark">Ver Tarea</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+<br>
+<span class="h5 m-2">Etiquetas:</span>
+{% for label in labels %}
+<span class="{% if label.id == 1 %}bg-primary text-white
+{% elif label.id == 2 %}bg-success text-white
+{% elif label.id == 3 %}bg-warning
+{% elif label.id == 4 %}bg-light
+{% else %}bg-danger text-white {% endif%} p-2 rounded-3 my-2 hovered cursor"data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ label.description }}">{{ label }}</span>
+{% endfor %}
+{% else %}
+
+  <p class="text-center h1 text-success my-2 mb-5 latente">¡No hay tareas pendientes!</p>
+{% endif %}
+{% endblock %}

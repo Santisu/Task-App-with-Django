@@ -195,6 +195,53 @@ li {
   color: rgba(40, 51, 178, 0.537);
   text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
 }
+
+/* EFECTIWIS PERSONALES */
+
+.hovered {
+  transition: 0.3s;
+}
+
+.hovered:hover {
+  transform: scale(1.05, 1.05);
+}
+
+.latente {
+  animation: latencia 1.5s infinite;
+}
+.cursor {
+  cursor: default;
+}
+
+
+@keyframes latencia {
+  0% {
+    transform: scale(1, 1);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0);
+  }
+  50% {
+    transform: scale(1.05, 1.05);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: scale(1, 1);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0);
+  }
+}
+
+
+.bg-date {
+  background-color: rgba(76, 175, 80, 0.3);
+}
+
+.bg-status {
+  background-color: rgba(76, 130, 175, 0.3);
+}
+
+.bg-description {
+  background-color: rgba(169, 202, 229, 0.193);
+}
+
 @media only screen and (max-width: 995px) {
   .cardo {
     margin-top: 20px;

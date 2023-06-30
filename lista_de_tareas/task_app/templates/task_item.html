@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Tarea {{ task }}{% endblock %}
+
+{% block content %}
+{% block header %}{% endblock %}
+<div class="row justify-content-center">
+<a href="" class="btn btn-primary rounded-3 col-2 m-2">Editar Tarea</a>
+<a href="" class="btn btn-success rounded-3 col-2 m-2">Completar Tarea</a>
+<button type="button" class="btn btn-danger rounded-3 col-2 m-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+    Eliminar Tarea
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Confirmar eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            ¿Está seguro de querer eliminar la tarea? <br> Esta no podrá ser recuperada...
+        </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+              <button type="submit" class="btn btn-danger">Eliminar Tarea</button>
+            </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+<a href="{% url 'tasks_list' %}" class="btn btn-light rounded-3 col-2 m-2">Regresar</a>
+</div>
+<div class="row justify-content-center">
+    <div class="card text-dark bg-light mt-2 mb-3 col-6 hovered">
+        <div class="card-body d-flex justify-content-between">
+          <span class="card-title h5 p-2 rounded-3 my-2 cursor">{{ task }}</span>
+          <span class="{% if task.label_id == 1 %}bg-primary text-white
+            {% elif task.label_id == 2 %}bg-success text-white
+            {% elif task.label_id == 3 %}bg-warning
+            {% elif task.label_id == 4 %}bg-light
+            {% else %}bg-danger text-white {% endif%} p-2 rounded-3 my-2 hovered cursor"data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ task.label.description }}">{{ task.label.title}}</span>
+        </div>
+        <div class="p-3 m-2 bg-description rounded-3">
+          <p class="card-text cursor ">{{ task.description }}</p>
+        </div>
+        <div class="card-body d-flex justify-content-between">
+            <span class="bg-date p-2 py-3 rounded-3 cursor">{{ task.due_date }}</span>
+            <span class="bg-status p-2 py-3 rounded-3 cursor">{{ task.status }}</span>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% for label in labels %}
+<span class="">{{ label }}</span>
+{% endfor %}
