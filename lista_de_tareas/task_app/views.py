@@ -12,7 +12,7 @@ class TaskListView(View):
     def get(self, request):
         user = request.user
         labels = Label.objects.all()
-        tasks = Task.objects.filter(user_id=user).order_by('due_date')
+        tasks = Task.objects.filter(user_id=user, status='Pendiente').order_by('due_date')
         context = {'tasks' : tasks,
                     'labels' : labels}
         return render(request, self.template, context)
