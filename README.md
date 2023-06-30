@@ -4,7 +4,7 @@ Esteban Santibáñez B
 
 Cada entrega se separará en ramas con el nombre del aprendizaje al que corresponde la entrega, manteniendose en el main el progreso principal.
 
-# Entregable 2
+# Entregable 3
 
 Pequeñas modificaciones:
 
