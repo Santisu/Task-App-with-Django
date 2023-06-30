@@ -10,6 +10,8 @@ Pequeñas modificaciones:
 
 Reflexionando, me hizo más sentido que el index_user estuviera en la app index_app en lugar de la app auth_app, por lo que fueron modificadas las vistas, reubicados los templates y editadas las urls.py para lograr esta modificación. 
 
+Adiciones:
+
 En esta segunda parte se agregaron los modelos correspondiente a las tareas (Task) y etiquetas (Label). Se ejecutaron las migraciones necesarias y además se habilitó la gestion del modelo Label en la administración de Django.
 
 
