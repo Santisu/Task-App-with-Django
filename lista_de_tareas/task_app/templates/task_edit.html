@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% load static %} 
+{% block title %}Tarea{% endblock %}
+{% block content %} {% block header %}{% endblock %}
+<div class="row justify-content-center">
+  <a href="{% url 'tasks_list' %}" class="btn btn-light rounded-3 col-2 m-2"
+    >Regresar</a>
+</div>
+<div class="row justify-content-center">
+  <div class="card text-dark bg-light mt-2 mb-3 col-6">
+    <div class="card-body d-flex justify-content-between">
+      <span class="card-title h5 p-2 rounded-3 my-2 cursor">Agregar Tarea</span>
+    </div>
+    <form class="card p-3 m-2 bg-description rounded-3" method="POST">
+      {% csrf_token %} {{ form.as_p}}
+      <button type="submit" class="btn btn-primary my-2">Guardar</button>
+    </form>
+    <div class="card-body d-flex justify-content-between"></div>
+  </div>
+</div>
+
+{% endblock %} {% for label in labels %}
+<span class="">{{ label }}</span>
+{% endfor %}
