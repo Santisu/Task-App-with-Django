@@ -4,7 +4,15 @@ Esteban Santibáñez B
 
 Cada entrega se separará en ramas con el nombre del aprendizaje al que corresponde la entrega, manteniendose en el main el progreso principal.
 
-Descripción básica de los avances del aprendizaje en la rama de cada uno.
+# Entregable 5
+
+Pequeñas modificaciones:
+  - Se modificaron las clases de bootstrap para que las nuevas modificaciones desde el aprendizaje dos puedan ser vistas de forma correcta en dispositivos móviles.
+  - Se modificó el formulario TaskCreationForm, ahora es simplemente TaskForm. Esto porque el mismo formulario puede ser usado para crear una nueva tarea o editar una tarea, por lo que el nombre podía llevar a una confusión respecto a los usos que se le daban
+  
+Adiciones:
+  - Al filtro de tareas se le agregaron nuevas opciones como filtrar por fecha y filtrar por estado.
+  - Se creó la vista, template y formulario de edición de tareas, este comparte el mismo template y formulario con la vista de creación de tareas, pero para este caso al formulario se le asigna un instance del objeto que se desea actualizar, cargando en el formulario todos los datos que tenía previamente el objeto tarea que se pretende editar.
 
 # Usuarios
 
