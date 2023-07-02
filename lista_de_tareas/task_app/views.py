@@ -5,7 +5,6 @@ from .models import Task, Label
 from .forms import TaskFilterForm, TaskForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.db.models import Q
 
 @method_decorator(login_required, name='dispatch')
 class TaskListView(View):
@@ -22,8 +21,7 @@ class TaskListView(View):
 
     def get(self, request):
         usuario = request.user
-        tasks = Task.objects.filter(Q(user_id=usuario.id, status='En Progreso') | 
-                                    Q(user_id=usuario.id, status='Pendiente')).order_by('due_date')
+        tasks = Task.objects.filter(user_id=usuario.id).exclude(status='Completada').order_by('due_date')
         context = {'tasks': tasks,
                    'labels': self.labels,
                    'form': self.form}
@@ -36,12 +34,10 @@ class TaskListView(View):
         max_due = request.POST['max_due']
 
         if label == "all_tasks":
-            filtered_tasks = Task.objects.filter(Q(user_id=usuario.id, status='En Progreso') | 
-                                                 Q(user_id=usuario.id, status='Pendiente')).order_by('due_date')
+            filtered_tasks = Task.objects.filter(user_id=usuario.id).exclude(status='Completada').order_by('due_date')
         else:
-            filtered_tasks = Task.objects.filter(Q(user_id=usuario.id, label=label, status='En Progreso') | 
-                                                 Q(user_id=usuario.id, label=label , status='Pendiente')).order_by('due_date')
-        
+            filtered_tasks = Task.objects.filter(user_id=usuario.id, label=label).exclude(status='Completada').order_by('due_date')
+
         if status == "all_status":
             pass
         else:
@@ -70,10 +66,13 @@ class TaskItemView(View):
 
     template = "task_item.html"
     
-    def get(self, request, pk):
-        task = get_object_or_404(Task, pk=pk)
+    def dispatch(self, request, *args, **kwargs):
+        self.task = get_object_or_404(Task, pk=kwargs['pk'])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
         labels = Label.objects.all()
-        context = {'task' : task,
+        context = {'task' : self.task,
                     'labels' : labels}
         return render(request, self.template, context)
 
@@ -85,10 +84,12 @@ class TaskCreationView(View):
     """
     form = TaskForm
     template = "task_edit.html"
+    title = "Agregar Tarea"
 
     def get(self, request):
         form = self.form
-        context = {'form' : form}
+        context = {'form' : form,
+                   'title' : self.title}
         return render(request, self.template, context)
     
     def post(self, request):
@@ -98,7 +99,8 @@ class TaskCreationView(View):
             task.user_id = request.user.id
             task.save()
             return redirect('tasks_list')
-        context = {'form': form}
+        context = {'form': form,
+                   'title' : self.title}
         return render(request, self.template, context)
 
 
@@ -111,23 +113,28 @@ class TaskEditionView(View):
 
     template = "task_edit.html"
     form = TaskForm
+    title = "Editar Tarea"
 
-    def get(self, request, pk):
-        task = get_object_or_404(Task, pk=pk)
-        labels = Label.objects.all()
-        form = self.form(instance=task, initial={'due_date': task.due_date})
-        context = {'task' : task,
-                    'labels' : labels,
-                    'form' : form}
+    def dispatch(self, request, *args, **kwargs):
+        self.task = get_object_or_404(Task, pk=kwargs['pk'])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        form = self.form(instance=self.task, initial={'due_date': self.task.due_date})
+        context = {
+            'task': self.task,
+            'form': form,
+            'title': self.title}
         return render(request, self.template, context)
-    
-    def post(self, request, pk):
-        task = get_object_or_404(Task, pk=pk)
-        form = self.form(request.POST, instance=task)
+
+    def post(self, request, *args, **kwargs):
+        form = self.form(request.POST, instance=self.task)
         if form.is_valid():
             task = form.save(commit=False)
             task.user_id = request.user.id
             task.save()
-            return redirect('task_item', pk)
-        context = {'form': form}
+            return redirect('task_item', pk=self.task.pk)
+        context = {
+            'form': form,
+            'title': self.title}
         return render(request, self.template, context)
