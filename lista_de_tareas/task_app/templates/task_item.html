@@ -2,8 +2,13 @@
 {% block title %}Tarea {{ task }}{% endblock %} 
 {% block content %} {% block header %}{% endblock %}
 <div class="row justify-content-center">
+   
+  <form method="POST">
+    {% csrf_token %}
+    <div class="d-flex justify-content-center">
   <a href="{% url 'task_edition' task.id %}" class="btn btn-primary rounded-3 col-lg-2 m-2">Editar Tarea</a>
-  <a href="" class="btn btn-success rounded-3 col-lg-2 m-2">Completar Tarea</a>
+  <button type="submit" name="complete" class="btn btn-success rounded-3 col-lg-2 m-2">Completar Tarea</button>
+  
   <button
     type="button"
     class="btn btn-danger rounded-3 col-lg-2 m-2"
@@ -12,49 +17,34 @@
   >
     Eliminar Tarea
   </button>
-
+  <a href="{% url 'tasks_list' %}" class="btn btn-light rounded-3 col-lg-2 m-2"
+    >Regresar</a>
+</div>
+  </form>
   <!-- Modal -->
-  <div
-    class="modal fade"
-    id="deleteModal"
-    tabindex="-1"
-    aria-labelledby="deleteModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">
-            Confirmar eliminación
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <h5 class="modal-title" id="deleteModalLabel">Confirmar eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ¿Está seguro de querer eliminar la tarea? <br />
-          Esta no podrá ser recuperada...
+            ¿Está seguro de querer eliminar la tarea? <br> Esta no podrá ser recuperada...
         </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Volver
-          </button>
-          <button type="submit" class="btn btn-danger">Eliminar Tarea</button>
-        </div>
+        <form method="post" name="delete_task"> 
+            {% csrf_token %}
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+              <button type="submit" class="btn btn-danger">Eliminar Tarea</button>
+            </div>
+        </form>
       </div>
     </div>
   </div>
 
-  <a href="{% url 'tasks_list' %}" class="btn btn-light rounded-3 col-lg-2 m-2"
-    >Regresar</a
-  >
+
+  
 </div>
 <div class="row justify-content-center">
   <div class="card text-dark bg-light mt-2 mb-3 col-lg-6 hovered">
@@ -70,6 +60,18 @@
     <div class="p-3 m-2 bg-description rounded-3">
       <p class="card-text cursor">{{ task.description }}</p>
     </div>
+    {% if observations %}
+    <form method="POST">
+    {% csrf_token %}
+    <p class="mx-3">Observaciones:</p>
+    {% for observation in observations %}
+    <div class="p-3 mx-2 mb-2 bg-description rounded-3 d-flex justify-content-between">
+      <span class="card-text m-2 cursor">{{ observation }}</span>
+      <button type="submit" name="delete_observation" value="{{ observation.id }}" class="btn btn-success rounded-3 col-lg-2 align-self-start align-self-center">Eliminar</button>
+    </div>
+    {% endfor %}
+    </form>
+    {% endif %}
     <div class="card-body d-flex justify-content-between">
       <span class="bg-date p-2 py-3 rounded-3 cursor"
         >{% if task.due_date %}{{ task.due_date }}{% else %}Sin fecha límite{% endif %}</span
@@ -78,8 +80,17 @@
     </div>
   </div>
 </div>
+<div class="row justify-content-center">
+  <div class="card text-dark bg-light mt-2 mb-3 col-lg-6">
+    <div class="card-body d-flex justify-content-between">
+      <span class="card-title h5 p-2 rounded-3 my-2 cursor">Agregar Observación</span>
+    </div>
+    <form class="card p-3 m-2 bg-description rounded-3" method="POST" name="observation">
+      {% csrf_token %} {{ form.as_p}}
+      <button type="submit" class="btn btn-primary my-2">Guardar</button>
+    </form>
+    <div class="card-body d-flex justify-content-between"></div>
+  </div>
+</div>
 
 {% endblock %} 
-{% for label in labels %}
-<span class="">{{ label }}</span>
-{% endfor %}

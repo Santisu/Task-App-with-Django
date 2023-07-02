@@ -1,8 +1,9 @@
 from datetime import datetime
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from .models import Task, Label
-from .forms import TaskFilterForm, TaskForm
+from .models import Task, Label, TaskObservation
+from .forms import TaskFilterForm, TaskForm, ObservationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
@@ -18,25 +19,28 @@ class TaskListView(View):
     labels = Label.objects.all()
     form = TaskFilterForm
 
+    def dispatch(self, request, *args, **kwargs):
+        self.usuario = request.user
+        self.completed_tasks = Task.objects.filter(user_id=self.usuario.id, status='Completada').order_by('due_date')
+        return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        usuario = request.user
-        tasks = Task.objects.filter(user_id=usuario.id).exclude(status='Completada').order_by('due_date')
+        tasks = Task.objects.filter(user_id=self.usuario.id).exclude(status='Completada').order_by('due_date')
         context = {'tasks': tasks,
                    'labels': self.labels,
-                   'form': self.form}
+                   'form': self.form,
+                   'completed_tasks' : self.completed_tasks}
         return render(request, self.template, context)
 
     def post(self, request):
-        usuario = request.user
         label = request.POST['label']
         status = request.POST['status']
         max_due = request.POST['max_due']
 
         if label == "all_tasks":
-            filtered_tasks = Task.objects.filter(user_id=usuario.id).exclude(status='Completada').order_by('due_date')
+            filtered_tasks = Task.objects.filter(user_id=self.usuario.id).exclude(status='Completada').order_by('due_date')
         else:
-            filtered_tasks = Task.objects.filter(user_id=usuario.id, label=label).exclude(status='Completada').order_by('due_date')
+            filtered_tasks = Task.objects.filter(user_id=self.usuario.id, label=label).exclude(status='Completada').order_by('due_date')
 
         if status == "all_status":
             pass
@@ -49,7 +53,8 @@ class TaskListView(View):
 
         context = {'tasks' : filtered_tasks,
                     'labels' : self.labels,
-                    'form' : self.form}
+                    'form' : self.form,
+                    'completed_tasks' : self.completed_tasks}
 
         if label != "all_tasks":
             context['requested_label'] = int(label)
@@ -65,16 +70,42 @@ class TaskItemView(View):
     """
 
     template = "task_item.html"
+    observation_form = ObservationForm
     
     def dispatch(self, request, *args, **kwargs):
+        self.usuario = request.user
         self.task = get_object_or_404(Task, pk=kwargs['pk'])
+        if self.task.user != self.usuario:
+            return HttpResponseForbidden("No tienes permiso para acceder a esta tarea.")
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        labels = Label.objects.all()
+        observations = TaskObservation.objects.filter(task_id=self.task.id)
         context = {'task' : self.task,
-                    'labels' : labels}
+                    'observations' : observations,
+                    'form' : self.observation_form}
         return render(request, self.template, context)
+    
+    def post(self, request, *args, **kwargs):
+        if 'complete' in request.POST:
+            self.task.status = 'Completada'
+            self.task.save()
+        elif 'delete_task' in request.POST:
+            self.task.delete()
+        elif "observation" in request.POST:
+            form = self.observation_form(request.POST)
+            if form.is_valid():
+                observation = form.save(commit=False)
+                observation.task = self.task
+                observation.save()
+                return redirect(request.get_full_path())
+        elif "delete_observation" in request.POST:
+            observation_id = request.POST.get('delete_observation')
+            observation = get_object_or_404(TaskObservation, id=observation_id)
+            observation.delete()
+            return redirect(request.get_full_path())
+        return redirect('tasks_list')
+
 
 @method_decorator(login_required, name ='dispatch')
 class TaskCreationView(View):
@@ -117,6 +148,8 @@ class TaskEditionView(View):
 
     def dispatch(self, request, *args, **kwargs):
         self.task = get_object_or_404(Task, pk=kwargs['pk'])
+        if self.task.user != request.user:
+            return HttpResponseForbidden("No tienes permiso para acceder a esta tarea.")
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):

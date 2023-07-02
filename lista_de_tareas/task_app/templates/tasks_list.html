@@ -69,12 +69,43 @@
 {% else %}bg-danger text-white {% endif%} p-2 rounded-3 my-2 hovered cursor"data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ label.description }}">{{ label }}</span>
 {% endfor %}
 {% else %}
-
     {% if requested_label %}
     <p class="text-center h1 text-success my-2 mb-5 latente cursor">¡No hay tareas pendientes con la etiqueta {% for label in labels %}{% if label.id == requested_label %}{{ label }}{% endif %}{% endfor %}!</p>
     {% else%}
   <p class="text-center h1 text-success my-2 mb-5 latente cursor">¡No hay tareas pendientes!</p>
 {% endif %}
-
 {% endif %}
+<br><br>
+{% if completed_tasks %}
+<h2 class="titulo h1">Tareas Completadas</h2>
+<div class="table-responsive">
+  <table class="table table-hover">
+      <thead>
+          <tr>
+            <th scope="col">Detalle</th>
+            <th scope="col">Tarea</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha Límite</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in completed_tasks %}
+          <tr class="{% if task.label_id == 1 %}table-primary
+                      {% elif task.label_id == 2 %}table-success
+                      {% elif task.label_id == 3 %}table-warning
+                      {% elif task.label_id == 4 %}table-light
+                      {% else %}table-danger {% endif%} align-middle cursor" >
+              <td><a href="{% url 'task_item' task.id %}" class="btn btn-dark">Ver Tarea</a></td>
+              <th class="align-middle cursor">{{ task.title }}</th>
+              <td class="align-middle cursor" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ task.description }}">{{ task.description|truncatechars:30 }}</td>
+              <td class="align-middle cursor">{{ task.status }}</td>
+              <td class="align-middle cursor" ><span class="bg-date p-2 rounded-3">{% if task.due_date %}{{ task.due_date }}{% else %}Sin fecha límite{% endif %}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+  </table>
+</div>
+{% endif %}
+
 {% endblock %}

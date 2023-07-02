@@ -30,3 +30,10 @@ class Task(models.Model):
     def __str__(self):
         return self.title
     
+
+class TaskObservation(models.Model):
+    observation = models.TextField()
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.observation

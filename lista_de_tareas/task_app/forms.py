@@ -1,7 +1,6 @@
 import datetime
 from django import forms
-from .models import Label, Task
-from django.contrib.auth.models import User
+from .models import Label, Task, TaskObservation
 
 
 class TaskFilterForm(forms.Form):
@@ -33,6 +32,7 @@ class TaskForm(forms.ModelForm):
 
         self.fields['title'].widget.attrs['class'] = 'form-control'
         self.fields['description'].widget.attrs['class'] = 'form-control'
+        self.fields['description'].widget.attrs['rows'] = '5'
         self.fields['due_date'].widget.attrs['class'] = 'form-control'
         self.fields['due_date'].widget = forms.DateInput(attrs={'type': 'date'})
         self.fields['status'].widget.attrs['class'] = 'form-control'
@@ -49,3 +49,15 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['title', 'description', 'due_date', 'status', 'label']
+
+
+class ObservationForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ObservationForm, self).__init__(*args, **kwargs)
+        self.fields['observation'].label = 'Observación'
+
+        self.fields['observation'].widget.attrs['class'] = 'form-control'
+        self.fields['observation'].widget.attrs['rows'] = '3'
+    class Meta:
+        model = TaskObservation
+        fields = ['observation']
