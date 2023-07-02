@@ -19,7 +19,7 @@ class Task(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=30)
     description = models.TextField()
-    due_date = models.DateTimeField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
     status = models.CharField(max_length=15, choices=STATUS_CHOICE)
     label = models.ForeignKey(Label, verbose_name=("etiqueta"), on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

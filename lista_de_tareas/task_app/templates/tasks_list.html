@@ -6,19 +6,24 @@
 {% block header %}<h1 class="titulo">Tareas Pendientes</h1>{% endblock %}
 
 <div class="row d-flex justify-content-between">
-<form class="card col-6 col-lg-7 p-3 d-flex" method="POST">
+<form class="card col-12 col-lg-9 p-2 d-flex" method="POST">
   {% csrf_token %}
   <div class="d-flex">
-    <p class="text-center my-3">Etiqueta</p>
     <select class="form-select m-2" name="label">
       {% for option_value, option_label in form.choices %}
       <option value="{{ option_value }}" {% if field.value == option_value %}selected{% endif %}>{{ option_label }}</option>
       {% endfor %}
     </select>
+    <select class="form-select m-2" name="status">
+      {% for option_value, option_label in form.STATUS_CHOICES %}
+      <option value="{{ option_value }}" {% if field.value == option_value %}selected{% endif %}>{{ option_label }} </option>
+      {% endfor %}
+    </select>
+    <input type="date" name="max_due" class="form-control m-2" placeholder="Fecha límite máxima" id="id_max_due">
     <button type="submit" class="btn btn-primary my-2">Filtrar</button>
   </div>
 </form>
-<a href="task_creation" class=" col-2 btn btn-success rounded-3 m-3"><p class="m-2 h5">Agregar Tarea</p></a>
+<a href="task_creation" class="col-11 col-lg-2 btn btn-success rounded-3 my-2 mx-3"><p class="my-2 h5">Agregar Tarea</p></a>
 </div>
 
 
@@ -26,6 +31,7 @@
 <br>
 
 {% if tasks %}
+<div class="table-responsive">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -43,17 +49,18 @@
                         {% elif task.label_id == 3 %}table-warning
                         {% elif task.label_id == 4 %}table-light
                         {% else %}table-danger {% endif%} align-middle cursor" >
-                <td class="align-middle cursor" ><span class="bg-date p-2 rounded-3">{% if task.due_date %}{{ task.due_date }}{% else %}Sin fecha límite{% endif %}</span></td>
+                <td><a href="{% url 'task_item' task.id %}" class="btn btn-dark">Ver Tarea</a></td>
                 <th class="align-middle cursor">{{ task.title }}</th>
                 <td class="align-middle cursor" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ task.description }}">{{ task.description|truncatechars:30 }}</td>
                 <td class="align-middle cursor">{{ task.status }}</td>
-                <td><a href="{% url 'task_item' task.id %}" class="btn btn-dark">Ver Tarea</a></td>
+                <td class="align-middle cursor" ><span class="bg-date p-2 rounded-3">{% if task.due_date %}{{ task.due_date }}{% else %}Sin fecha límite{% endif %}</span></td>
             </tr>
             {% endfor %}
           </tbody>
     </table>
+  </div>
 <br>
-<span class="h5 m-2">Etiquetas:</span>
+<span class="h5 m-2">Etiquetas:</span> <br><br>
 {% for label in labels %}
 <span class="{% if label.id == 1 %}bg-primary text-white
 {% elif label.id == 2 %}bg-success text-white
@@ -64,9 +71,9 @@
 {% else %}
 
     {% if requested_label %}
-    <p class="text-center h1 text-success my-2 mb-5 latente">¡No hay tareas pendientes con la etiqueta {% for label in labels %}{% if label.id == requested_label %}{{ label }}{% endif %}{% endfor %}!</p>
+    <p class="text-center h1 text-success my-2 mb-5 latente cursor">¡No hay tareas pendientes con la etiqueta {% for label in labels %}{% if label.id == requested_label %}{{ label }}{% endif %}{% endfor %}!</p>
     {% else%}
-  <p class="text-center h1 text-success my-2 mb-5 latente">¡No hay tareas pendientes!</p>
+  <p class="text-center h1 text-success my-2 mb-5 latente cursor">¡No hay tareas pendientes!</p>
 {% endif %}
 
 {% endif %}

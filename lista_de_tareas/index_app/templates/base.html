@@ -11,7 +11,7 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
@@ -48,6 +48,14 @@
                 aria-current="page"
                 href="{% url 'tasks_list'%}"
                 >Lista de Tareas</a
+              >
+            </li>
+            <li class="nav-item navli">
+              <a
+                class="nav-link active navboton rounded-4 mx-1"
+                aria-current="page"
+                href="{% url 'task_creation'%}"
+                >Nueva Tarea</a
               >
             </li>
             {% endif %}

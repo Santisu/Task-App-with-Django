@@ -2,11 +2,11 @@
 {% block title %}Tarea {{ task }}{% endblock %} 
 {% block content %} {% block header %}{% endblock %}
 <div class="row justify-content-center">
-  <a href="" class="btn btn-primary rounded-3 col-2 m-2">Editar Tarea</a>
-  <a href="" class="btn btn-success rounded-3 col-2 m-2">Completar Tarea</a>
+  <a href="{% url 'task_edition' task.id %}" class="btn btn-primary rounded-3 col-lg-2 m-2">Editar Tarea</a>
+  <a href="" class="btn btn-success rounded-3 col-lg-2 m-2">Completar Tarea</a>
   <button
     type="button"
-    class="btn btn-danger rounded-3 col-2 m-2"
+    class="btn btn-danger rounded-3 col-lg-2 m-2"
     data-bs-toggle="modal"
     data-bs-target="#deleteModal"
   >
@@ -52,12 +52,12 @@
     </div>
   </div>
 
-  <a href="{% url 'tasks_list' %}" class="btn btn-light rounded-3 col-2 m-2"
+  <a href="{% url 'tasks_list' %}" class="btn btn-light rounded-3 col-lg-2 m-2"
     >Regresar</a
   >
 </div>
 <div class="row justify-content-center">
-  <div class="card text-dark bg-light mt-2 mb-3 col-6 hovered">
+  <div class="card text-dark bg-light mt-2 mb-3 col-lg-6 hovered">
     <div class="card-body d-flex justify-content-between">
       <span class="card-title h5 p-2 rounded-3 my-2 cursor">{{ task }}</span>
       <span

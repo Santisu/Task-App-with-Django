@@ -2,11 +2,11 @@
 {% block title %}Tarea{% endblock %}
 {% block content %} {% block header %}{% endblock %}
 <div class="row justify-content-center">
-  <a href="{% url 'tasks_list' %}" class="btn btn-light rounded-3 col-2 m-2"
+  <a href="{% url 'tasks_list' %}" class="btn btn-light rounded-3 col-lg-2 m-2"
     >Regresar</a>
 </div>
 <div class="row justify-content-center">
-  <div class="card text-dark bg-light mt-2 mb-3 col-6">
+  <div class="card text-dark bg-light mt-2 mb-3 col-lg-6">
     <div class="card-body d-flex justify-content-between">
       <span class="card-title h5 p-2 rounded-3 my-2 cursor">Agregar Tarea</span>
     </div>
@@ -17,7 +17,4 @@
     <div class="card-body d-flex justify-content-between"></div>
   </div>
 </div>
-
-{% endblock %} {% for label in labels %}
-<span class="">{{ label }}</span>
-{% endfor %}
+{% endblock %} 
