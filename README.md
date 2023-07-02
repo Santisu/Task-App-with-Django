@@ -4,7 +4,7 @@ Esteban Santibáñez B
 
 Cada entrega se separará en ramas con el nombre del aprendizaje al que corresponde la entrega, manteniendose en el main el progreso principal.
 
-# Entregable 3
+# Entregable 4
 
 Pequeñas modificaciones:
   - Se modificó el campo due_date del modelo Task, ya que no se implementaba bien al momento de querer agregar una fecha y hora en el formulario de creación de tareas, ahora funciona de forma correcta, además se agregó el atributo "null=True" para poder elegir la opción de no ponerle una fecha límite.
