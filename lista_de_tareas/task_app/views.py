@@ -126,9 +126,7 @@ class TaskCreationView(View):
     def post(self, request):
         form = self.form(request.POST)
         if form.is_valid():
-            task = form.save(commit=False)
-            task.user_id = request.user.id
-            task.save()
+            form.save()
             return redirect('tasks_list')
         context = {'form': form,
                    'title' : self.title}
@@ -171,3 +169,4 @@ class TaskEditionView(View):
             'form': form,
             'title': self.title}
         return render(request, self.template, context)
+

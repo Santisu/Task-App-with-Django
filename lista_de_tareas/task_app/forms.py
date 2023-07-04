@@ -28,6 +28,7 @@ class TaskForm(forms.ModelForm):
         self.fields['due_date'].label = 'Fecha límite'
         self.fields['status'].label = 'Estado'
         self.fields['label'].label = 'Etiqueta'
+        self.fields['user'].label = 'Usuario a asignar'
 
 
         self.fields['title'].widget.attrs['class'] = 'form-control'
@@ -37,6 +38,7 @@ class TaskForm(forms.ModelForm):
         self.fields['due_date'].widget = forms.DateInput(attrs={'type': 'date'})
         self.fields['status'].widget.attrs['class'] = 'form-control'
         self.fields['label'].widget.attrs['class'] = 'form-control'
+        self.fields['user'].widget.attrs['class'] = 'form-control'
 
         instance = kwargs.get('instance')
         if instance and 'due_date' in self.initial:
@@ -44,11 +46,11 @@ class TaskForm(forms.ModelForm):
             if due_date:
                 self.initial['due_date'] = due_date.strftime('%Y-%m-%dT')
             else: pass
-
+ 
 
     class Meta:
         model = Task
-        fields = ['title', 'description', 'due_date', 'status', 'label']
+        fields = ['title', 'description', 'due_date', 'status', 'label', 'user']
 
 
 class ObservationForm(forms.ModelForm):
