@@ -1,6 +1,5 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Iniciar Sesion{% endblock %} {% block header %}
-<h1 class="titulo">Iniciar Sesión</h1>
-{% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}Iniciar Sesion{% endblock %} {% block content %}
+{% block header %}<h1 class="titulo">Registro de Usuario </h1>{% endblock %}
 <div class="row justify-content-center">
   {% if error %}
   <div class="d-flex justify-content-center align-content-center">
@@ -10,14 +9,14 @@
   <form class="card col-8 col-lg-4 p-3" method="POST">
     {% csrf_token %} {% for field in form %}
     <label for="{{ field.id_for_label }}" class="form-label"
-      >{{ field.label }}:</label
-    >
+      >{{ field.label }}:</label>
     {{ field }} {% endfor %}
-    <button type="submit" class="btn mt-3 botonmemo">Iniciar Sesión</button>
-<a class="form-text text-center" href="{% url 'register' %}">
-      Entra aquí si no tienes una cuenta registrada
+    <button type="submit" class="btn mt-3 botonmemo">Registrarse</button>
+<a class="form-text text-center" href="{% url 'login' %}">
+      Si ya estás registrado, inicia sesión aquí
     </a>
   </form>
 </div>
 
 {% endblock %}
+ 

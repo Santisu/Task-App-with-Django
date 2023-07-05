@@ -19,6 +19,11 @@
       <option value="{{ option_value }}" {% if field.value == option_value %}selected{% endif %}>{{ option_label }} </option>
       {% endfor %}
     </select>
+    <select class="form-select m-2" name="priority">
+      {% for option_value, option_label in form.choices_priority %}
+      <option value="{{ option_value }}" {% if field.value == option_value %}selected{% endif %}>{{ option_label }}</option>
+      {% endfor %}
+    </select>
     <input type="date" name="max_due" class="form-control m-2" placeholder="Fecha límite máxima" id="id_max_due">
     <button type="submit" class="btn btn-primary my-2">Filtrar</button>
   </div>
@@ -39,6 +44,7 @@
               <th scope="col">Tarea</th>
               <th scope="col">Descripción</th>
               <th scope="col">Estado</th>
+              <th scope="col">Prioridad</th>
               <th scope="col">Fecha Límite</th>
             </tr>
           </thead>
@@ -53,6 +59,14 @@
                 <th class="align-middle cursor">{{ task.title }}</th>
                 <td class="align-middle cursor" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ task.description }}">{{ task.description|truncatechars:30 }}</td>
                 <td class="align-middle cursor">{{ task.status }}</td>
+                <td class="align-middle cursor"><span class="p-2 rounded-3 {% if task.priority.rank == 1 %}
+                                                              priority-low
+                                                              {% elif task.priority.rank == 2 %}
+                                                              priority-medium
+                                                              {% elif task.priority.rank == 3 %}
+                                                              priority-high
+                                                              {% endif %}">
+                  {% if task.priority %}{{ task.priority }}{% else %}No asignada{% endif %}</span></td>
                 <td class="align-middle cursor" ><span class="bg-date p-2 rounded-3">{% if task.due_date %}{{ task.due_date }}{% else %}Sin fecha límite{% endif %}</span></td>
             </tr>
             {% endfor %}
@@ -71,6 +85,8 @@
 {% else %}
     {% if requested_label %}
     <p class="text-center h1 text-success my-2 mb-5 latente cursor">¡No hay tareas pendientes con la etiqueta {% for label in labels %}{% if label.id == requested_label %}{{ label }}{% endif %}{% endfor %}!</p>
+    {% elif requested_priority %}
+    <p class="text-center h1 text-success my-2 mb-5 latente cursor">¡No hay tareas de prioridad {% for prior in priority %}{% if prior.id == requested_priority %}{{ prior }}{% endif %}{% endfor %} pendientes!</p>
     {% else%}
   <p class="text-center h1 text-success my-2 mb-5 latente cursor">¡No hay tareas pendientes!</p>
 {% endif %}

@@ -2,7 +2,7 @@ from datetime import datetime
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from .models import Task, Label, TaskObservation
+from .models import Priority, Task, Label, TaskObservation
 from .forms import TaskFilterForm, TaskForm, ObservationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -18,6 +18,7 @@ class TaskListView(View):
     template = "tasks_list.html"
     labels = Label.objects.all()
     form = TaskFilterForm
+    prioritys = Priority.objects.all()
 
     def dispatch(self, request, *args, **kwargs):
         self.usuario = request.user
@@ -35,6 +36,7 @@ class TaskListView(View):
     def post(self, request):
         label = request.POST['label']
         status = request.POST['status']
+        priority = request.POST['priority']
         max_due = request.POST['max_due']
 
         if label == "all_tasks":
@@ -47,6 +49,11 @@ class TaskListView(View):
         else:
              filtered_tasks = filtered_tasks.filter(status=status)
 
+        if priority == "all_priority":
+            pass
+        else:
+             filtered_tasks = filtered_tasks.filter(priority=priority)
+
         if max_due:
             max_due = datetime.strptime(max_due, '%Y-%m-%d').date()
             filtered_tasks = filtered_tasks.filter(due_date__lt=max_due)
@@ -58,6 +65,10 @@ class TaskListView(View):
 
         if label != "all_tasks":
             context['requested_label'] = int(label)
+
+        if priority != "all_priority":
+            context['requested_priority'] = int(priority)
+            context['priority'] = self.prioritys
 
         return render(request, self.template, context)
 

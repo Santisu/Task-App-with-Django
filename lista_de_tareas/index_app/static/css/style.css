@@ -209,10 +209,18 @@ li {
 .latente {
   animation: latencia 1.5s infinite;
 }
+
+.latente1 {
+  animation: latencia 1.5s 5;
+}
+
+.latente2 {
+  animation: latencia2 0.5s 10;
+}
+
 .cursor {
   cursor: default;
 }
-
 
 @keyframes latencia {
   0% {
@@ -229,6 +237,34 @@ li {
   }
 }
 
+@keyframes latencia2 {
+  0% {
+    transform: scale(1, 1);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0);
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: scale(1, 1);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0);
+  }
+}
+
+/* FONDOS PERSONALIZADOS */
+
+.priority-low {
+  background-color: azure;
+}
+
+.priority-medium {
+  background-color: gold;
+}
+
+.priority-high {
+  background-color: crimson;
+}
 
 .bg-date {
   background-color: rgba(106, 145, 244, 0.653);
@@ -241,6 +277,16 @@ li {
 .bg-description {
   background-color: rgba(169, 202, 229, 0.193);
 }
+
+.card-fixed-height {
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-fixed-height .bg-description {
+  overflow: auto;
+}
+
 
 @media only screen and (max-width: 995px) {
   .cardo {

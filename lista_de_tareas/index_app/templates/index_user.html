@@ -6,12 +6,41 @@
 
 <div class="row">
 {% if user.is_authenticated %}
+{% if tasks %}
+<section class="col-lg-12 inicio">
+    <h3 class="card-title mb-2 titulo">¡Bienvenid@, {{ user.first_name }} {{ user.last_name }}!</h3>
+    <p class="h5">Tareas pendientes: </p>
+    <div class="row justify-content-center">
+    {% for task in tasks %}
+    <div class="card text-dark bg-light m-2 mb-3 col-lg-3 hovered card-fixed-height">
+        <div class="card-body d-flex justify-content-between">
+          <span class="card-title h5 p-2 rounded-3 my-2 cursor">{{ task }}</span>
+          <span
+        class="{% if task.label_id == 1 %}bg-primary text-white {% elif task.label_id == 2 %}bg-success text-white {% elif task.label_id == 3 %}bg-warning {% elif task.label_id == 4 %}bg-light {% else %}bg-danger text-white {% endif%} p-2 rounded-3 my-2 hovered cursor"
+        data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ task.label.description }}">{{ task.label.title }}</span>
+        </div>
+        <div class="p-3 m-2 bg-description rounded-3">
+          <p class="card-text cursor"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ task.description }}">{{ task.description|truncatechars:50 }}</p>
+        </div>
+        <div class="card-body d-flex justify-content-between">
+          <span class="bg-date p-2 py-3 rounded-3 cursor">{% if task.due_date %}{{ task.due_date }}{% else %}Sin fecha
+            límite{% endif %}</span>
+          <span class="bg-status p-2 py-3 rounded-3 cursor">{{ task.status }}</span>
+        </div>
+        <div class="mb-3">
+            <a href="{% url 'task_item' task.id %}" class="btn btn-dark col-12">Ver Tarea</a>
+          </div>
+      </div>
+    {% endfor %}
+    </div>
+</section>
+{% else %}
 <section class="col-lg-12 inicio">
     <div class="row justify-content-center d-flex align-content-center">
         <div class="cardo2 col-8 col-lg-5 ">
             <div class="card-body">
             <h3 class="card-title mb-2 titulo">¡Bienvenid@, {{ user.first_name }} {{ user.last_name }}!</h3>
-            <p class="card-text">Estamos trabajando para poder implementar este programa, prontamente podrás ver tu registro de tareas en esta página, agradecemos su paciencia.</p>
+            <p class="card-text">¡No hay tareas pendientes!</p>
             </div>
         </div>
         <div class="col-lg-6 container-img">
@@ -20,6 +49,8 @@
     </div>
 </section>
 {% endif %}
+{% endif %}
 </div>
 
 {% endblock %}
+

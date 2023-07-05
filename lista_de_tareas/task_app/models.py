@@ -34,7 +34,7 @@ class Task(models.Model):
     priority = models.ForeignKey(Priority, null=True, blank=True, on_delete=models.SET_NULL)
 
     def formatted_due_date(self):
-            return self.due_date.strftime("%d-%m-%Y %H:%M:%S")
+            return self.due_date.strftime("%d-%m-%Y")
     
     def __str__(self):
         return self.title

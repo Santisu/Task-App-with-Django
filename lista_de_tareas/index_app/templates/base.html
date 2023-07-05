@@ -11,7 +11,7 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
@@ -71,14 +71,14 @@
               >
             </li>
             {% else %}
-            {% comment %} <li class="nav-item navli">
+            <li class="nav-item navli">
               <a
                 class="nav-link active navboton rounded-4 mx-1"
                 aria-current="page"
-                href="{% url 'index'%}"
+                href="{% url 'register'%}"
                 >Registrarse</a
               >
-            </li> {% endcomment %}
+            </li> 
             <li class="nav-item navli">
               <a
                 class="nav-link active navboton rounded-4 mx-1"

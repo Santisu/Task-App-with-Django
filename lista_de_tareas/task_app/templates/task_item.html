@@ -46,6 +46,22 @@
 
   
 </div>
+{% if task.priority %}
+<div class="row justify-content-center">
+  <div class="card text-dark mt-2 mb-3 col-lg-6
+                                                {% if task.priority.rank == 1 %}
+                                                priority-low
+                                                {% elif task.priority.rank == 2 %}
+                                                priority-medium latente1
+                                                {% else %}
+                                                priority-high latente2
+                                                {% endif %}">
+    <div class="card-body d-flex justify-content-center">
+      <span class="card-title h2 p-2 rounded-3 my-2 cursor">Prioridad: {{ task.priority }}</span>
+    </div>
+  </div>
+</div>
+{% endif %}
 <div class="row justify-content-center">
   <div class="card text-dark bg-light mt-2 mb-3 col-lg-6 hovered">
     <div class="card-body d-flex justify-content-between">
