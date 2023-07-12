@@ -1,4 +1,4 @@
-# Modulo-7-Acceso-a-datos-en-aplicaciones-Django
+# Task App con Django
 
 Esteban Santibáñez B
 
